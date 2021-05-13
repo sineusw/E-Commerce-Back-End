@@ -6,12 +6,26 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 // get all products
 router.get('/', (req, res) => {
   // find all products
+  try{
+
+  const products = await Product.findAll({include: [Category, Tag]}).toJSON();
+  res.send(products)
+  } catch(error){
+    res.status(500).send(error)
+  }
   // be sure to include its associated Category and Tag data
 });
 
 // get one product
 router.get('/:id', (req, res) => {
   // find a single product by its `id`
+  try{
+  const {id} = req.params
+  const singleProduct = await Product.findByPk(id, {include: [Category, Tag]}).toJSON();
+  res.send(singleProduct)
+  } catch(error){
+    res.status(404).send(error);
+  }
   // be sure to include its associated Category and Tag data
 });
 
@@ -90,6 +104,14 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
+  const {id} = req.params
+  const singleProduct = await Product.findByPk(id);
+  try {
+    await singleProduct.destroy();
+    res.status(200).send("Deleted successfully")
+  }catch(error){
+    res.status(404).send(error)
+  }
   // delete one product by its `id` value
 });
 
