@@ -1,7 +1,7 @@
 -- DROP DATABASE
 DROP DATABASE IF EXISTS ecommerce_db;
 
-process.env.DB_NAME;
+-- process.env.DB_NAME;
 
 -- CREATE TABLE Category(
 --     id INT(6) NOT NULL AUTO_INCREMENT PRIMARY KEY; 
@@ -39,6 +39,6 @@ process.env.DB_NAME;
 
 -- CREATE DATABASE
 CREATE DATABASE ecommerce_db ; 
-
+-- USE ecommerce_db;
 -- process.env.DB_NAME;
 
